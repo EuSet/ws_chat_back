@@ -8,7 +8,8 @@ import cors from "cors"
 
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Orign', '*');
     res.send('Hello, its WS server')
 });
 
