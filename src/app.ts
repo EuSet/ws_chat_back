@@ -6,7 +6,9 @@ import {Server} from "socket.io";
 const io = new Server(server);
 import cors from "cors"
 
-app.use (cors());
+app.use(cors({
+    origin: 'https://chat-with-ws.herokuapp.com'
+}));
 
 app.get('/', (req, res) => {
     res.send('Hello, its WS server')
