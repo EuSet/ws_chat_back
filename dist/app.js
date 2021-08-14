@@ -4,8 +4,9 @@ import http from 'http';
 var server = http.createServer(app);
 import { Server } from "socket.io";
 var io = new Server(server);
+import cors from "cors";
+app.use(cors());
 app.get('/', function (req, res) {
-    res.header("Access-Control-Allow-Origin", '*');
     res.send('Hello, its WS server');
 });
 io.on('connection', function (socket) {
