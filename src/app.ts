@@ -3,8 +3,9 @@ const app = express();
 import http from 'http';
 const server = http.createServer(app);
 import {Server} from "socket.io";
+var cors = require('cors')
 const io = new Server(server);
-
+app.options('/', cors())
 app.get('/', (req, res) => {
     res.send('Hello, its WS server')
 });
