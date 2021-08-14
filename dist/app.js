@@ -11,7 +11,7 @@ io.on('connection', function (socket) {
     console.log('a user connected');
 });
 var PORT = process.env.PORT || 3009;
-server.listen(3000, function () {
+server.listen(PORT, function () {
     console.log(PORT);
     console.log('listening on *:3009');
 });
