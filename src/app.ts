@@ -5,8 +5,16 @@ const server = http.createServer(app);
 import {Server} from "socket.io";
 var cors = require('cors')
 const io = new Server(server);
+
+
 app.options('/', cors())
-app.get('/', (req, res) => {
+
+app.listen(3009, function () {
+    console.log('CORS-enabled web server listening on port 3009')
+})
+app.options('*', cors())
+
+app.get('/', cors({origin:false}), (req, res) => {
     res.send('Hello, its WS server')
 });
 
