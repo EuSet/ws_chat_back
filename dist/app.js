@@ -5,10 +5,14 @@ var server = http.createServer(app);
 import { Server } from "socket.io";
 var io = new Server(server);
 app.get('/', function (req, res) {
+    res.header("Access-Control-Allow-Origin", '*');
     res.send('Hello, its WS server');
 });
 io.on('connection', function (socket) {
     console.log('a user connected');
+});
+io.on('message sent', function (mes) {
+    console.log(mes);
 });
 var PORT = process.env.PORT || 3009;
 server.listen(PORT, function () {

@@ -6,12 +6,16 @@ import {Server} from "socket.io";
 const io = new Server(server);
 
 app.get('/', (req, res) => {
+    res.header("Access-Control-Allow-Origin", '*');
     res.send('Hello, its WS server')
 });
 
 io.on('connection', (socket) => {
     console.log('a user connected');
 });
+io.on('message sent', (mes:string) => {
+    console.log(mes)
+})
 const PORT = process.env.PORT || 3009
 server.listen(PORT, () => {
     console.log(PORT)
