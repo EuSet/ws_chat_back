@@ -3,13 +3,12 @@ const app = express();
 import http from 'http';
 const server = http.createServer(app);
 import {Server} from "socket.io";
-const io = new Server(server);
+const io = new Server(server, {cors:{origin:'https://chat-with-ws.herokuapp.com'}});
 import cors from "cors"
 
 app.use(cors());
 
 app.get('/', async (req, res) => {
-    res.setHeader('Access-Control-Allow-Orign', '*');
     res.send('Hello, its WS server')
 });
 

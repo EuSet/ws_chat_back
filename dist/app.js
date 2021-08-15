@@ -44,7 +44,6 @@ import cors from "cors";
 app.use(cors());
 app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        res.setHeader('Access-Control-Allow-Orign', '*');
         res.send('Hello, its WS server');
         return [2 /*return*/];
     });
