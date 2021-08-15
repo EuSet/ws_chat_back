@@ -42,16 +42,36 @@ import { Server } from "socket.io";
 var io = new Server(server, { cors: { origin: 'http://localhost:3000' } });
 import cors from "cors";
 app.use(cors());
+var messages = [
+    { message: 'Hello Dimych', id: '1', user: { id: 'a', name: 'Eugene' } },
+    { message: 'Hello Eugene', id: '2', user: { id: 'b', name: 'Dimych' } }
+];
 app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         res.send('Hello, its WS server');
         return [2 /*return*/];
     });
 }); });
+var users = new Map();
 io.on('connection', function (socket) {
+    users.set(socket, { name: 'anonim', id: new Date().getTime().toString() });
+    socket.on('client-name-sent', function (name) {
+        var user = users.get(socket);
+        user.name = name;
+    });
+    socket.on('disconnect', function () {
+        users.delete(socket);
+    });
+    socket.on('message-sent', function (mes) {
+        var user = users.get(socket);
+        var item = { message: mes, id: new Date().getTime().toString(), user: { id: user.id, name: user.name } };
+        messages.push(item);
+        io.emit('new-message-sent', item);
+    });
+    socket.emit('init-messages', messages);
     console.log('a user connected');
 });
-io.on('message sent', function (mes) {
+io.on('message-sent', function (mes) {
     console.log(mes);
 });
 var PORT = process.env.PORT || 3009;
