@@ -39,7 +39,7 @@ var app = express();
 import http from 'http';
 var server = http.createServer(app);
 import { Server } from "socket.io";
-var io = new Server(server);
+var io = new Server(server, { cors: { origin: 'http://localhost:3000' } });
 import cors from "cors";
 app.use(cors());
 app.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
